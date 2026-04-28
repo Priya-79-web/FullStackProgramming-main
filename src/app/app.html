@@ -1,0 +1,42 @@
+<div class="app-container">
+  <h2>Employee System (₹)</h2>
+
+  <!-- Input Form -->
+  <div class="entry-form">
+    <input [(ngModel)]="empName" placeholder="Name">
+    <input [(ngModel)]="empDesignation" placeholder="Designation">
+    <input [(ngModel)]="empAge" type="number" placeholder="Age">
+    <input [(ngModel)]="empSalary" type="number" placeholder="Salary (₹)">
+    
+    <button class="add-btn" (click)="saveEmployee()">
+      {{ editingIndex !== null ? 'Update' : 'Add Employee' }}
+    </button>
+    <button *ngIf="editingIndex !== null" (click)="clearFields()">Cancel</button>
+  </div>
+
+  <hr>
+
+  <!-- Control Header -->
+  <div class="list-header">
+    <h3>Staff List</h3>
+    <button *ngIf="employees.length > 0" class="clear-btn" (click)="removeAllEmployees()">
+      Remove All
+    </button>
+  </div>
+
+  <!-- Data Display -->
+  <div class="employee-list">
+    <div class="card" *ngFor="let emp of employees; let i = index">
+      <div class="info">
+        <strong>{{ emp.name }}</strong> ({{ emp.designation }}) <br>
+        <small>Age: {{ emp.age }} | Level: {{ emp.level }}</small>
+        <p>Total Pay: ₹{{ emp.salary + emp.bonus }}</p>
+      </div>
+      <div class="actions">
+        <button class="edit-btn" (click)="editEmployee(i)">Edit</button>
+        <button class="del-btn" (click)="deleteEmployee(i)">Delete</button>
+      </div>
+    </div>
+    <p *ngIf="employees.length === 0">No records found.</p>
+  </div>
+</div>
